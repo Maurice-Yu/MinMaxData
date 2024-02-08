@@ -1,13 +1,18 @@
 # takes in CSV file and outputs a nested dictionary
-from ResterantData.ResterantData import ResterantData
+from RestaurantData.RestaurantData import RestaurantData
 import csv
-def parseCSV(resterantobj, csvpath):
+def parseCSV(restaurantarg, csvpath):
     with open(csvpath, mode='r') as file:
         csvfile = csv.DictReader(file)
-        resterantNum=0
         for lines in csvfile:
-            resterantobj[resterantNum].rawData=lines
-            resterantNum+=1
+            print(lines)
+            newRestaurant = RestaurantData(lines.pop("Location Name"))
+            linesAsFloat= {param:float(lines.get(param)) for param in lines}
 
-    return resterantobj
+            newRestaurant.setRawData(linesAsFloat)
+            
+            restaurantarg.append(newRestaurant)
+            
+
+    return restaurantarg
     
