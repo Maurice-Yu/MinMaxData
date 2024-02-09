@@ -32,12 +32,18 @@ def calculateMinMax(restaurants):
         except ZeroDivisionError:
             print("Data must have a field that has more than one unique entry")
 
-'''Sets the avarage score for a restaurant'''
+'''Sets the avarage score for a restaurant. You can add modifications to types different types of fields'''
 def AvarageScore(restaurant):
-    data=restaurant.getRawData()
-    fields = [restaurant.rawData.get(field) for field in data]
-    avarage = sum(fields)/len(fields)
-    restaurant.setAvarageScore(avarage)    
+    data=restaurant.getMinMaxData()
+    adjustedData=data.copy()
+    try:
+        adjustedData.update({" Cash Over/Short":-1*abs(adjustedData.get(" Cash Over/Short"))})
+        adjustedData.update({" Discount Total Amount":-1*(adjustedData.get(" Discount Total Amount"))})
+        adjustedData.update({" Speed of Service Total Seconds":-1*(adjustedData.get(" Speed of Service Total Seconds"))})
+    finally:
+        avarage = sum(adjustedData.values())/len(adjustedData.values())
+        restaurant.setAvarageScore(avarage)
+        print (restaurant.getAvarageScore())    
 
 '''prints the ranking for the best restaurants'''
 def printrestaurantRanking(restaurants):

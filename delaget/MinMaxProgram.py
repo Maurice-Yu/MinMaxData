@@ -1,6 +1,6 @@
 from MinMax.MinMax import *
 from ParseCSV.ParseCSV import *
-
+'''pass in file path and returns ranking printed to stdout'''
 def main(argv):
     if len(argv)<2:
         raise Exception("Usage: args <path to csv file>")

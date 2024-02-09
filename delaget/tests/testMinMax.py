@@ -3,6 +3,8 @@ from RestaurantData.RestaurantData import *
 import unittest
 from hypothesis import given, strategies as st, settings,Verbosity
 
+'''Used for testing program. Tests MinMax functions'''
+
 class TestRestaurantData(unittest.TestCase):
     def setUp(self):
         self.restaurant = RestaurantData("name")    
@@ -31,4 +33,13 @@ class TestRestaurantData(unittest.TestCase):
             self.assertEqual(restaurants[1].getMinMaxData(),{"sales":(param2-minparam)/(maxparam-minparam)})
             self.assertEqual(restaurants[2].getMinMaxData(),({"sales":(param3-minparam)/(maxparam-minparam)}))
 
+        self.tearDown()
+    
+    @given(cash=st.floats(min_value=-1, max_value=1),speed=st.floats(min_value=-1, max_value=1),discount=st.floats(min_value=-1, max_value=1))
+    @settings(verbosity=Verbosity.verbose, max_examples=15)
+    def testMinMax(self,cash,speed,discount):
+        self.setUp()
+        self.restaurant.setMinMaxData({" Cash Over/Short":cash," Discount Total Amount": discount, " Speed of Service Total Seconds": speed})
+        AvarageScore(self.restaurant)
+        self.assertAlmostEqual(self.restaurant.getAvarageScore(),sum([-1*abs(cash),-1*speed,-1*discount])/3)
         self.tearDown()
