@@ -7,7 +7,7 @@ def calculateMinMax(restaurants):
     then goes through each restaurant and updates the coresponding minmax value
     '''
 
-    for scoreType in restaurants[0].getRawData().copy():
+    for scoreType in restaurants[0].getRawData():
         minimumScore = {}
         maximumScore = {}
         minimumScore.update({scoreType:restaurants[0].getRawData().get(scoreType)})
@@ -42,8 +42,7 @@ def AvarageScore(restaurant):
         adjustedData.update({" Speed of Service Total Seconds":-1*(adjustedData.get(" Speed of Service Total Seconds"))})
     finally:
         avarage = sum(adjustedData.values())/len(adjustedData.values())
-        restaurant.setAvarageScore(avarage)
-        print (restaurant.getAvarageScore())    
+        restaurant.setAvarageScore(avarage)  
 
 '''prints the ranking for the best restaurants'''
 def printrestaurantRanking(restaurants):
