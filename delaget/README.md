@@ -1,3 +1,6 @@
+# This was a company assignment for taking in data and computing the min-max value
+
+
 # To Run Unit Tests
 pipenv run python TestRunner.py \
 # To Run Program
